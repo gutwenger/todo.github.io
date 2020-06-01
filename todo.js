@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector("#button-refresh").onclick = () => {
         localStorage.clear();
         list.innerHTML = '';
+        id = 0;
     }
 
 
@@ -57,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let todoNew = `<div class="list">
                         <i class="${status}"></i>
                         <p class="${cross}">${name}</p>
-                        <i class="list-delete far fa-trash-alt list-button-delete"></i>
+                        <i id="${id}" class="list-delete far fa-trash-alt list-button-delete"></i>
                      </div>`
 
         // Insert the todo-list item at the end of the last child of #middle-container
@@ -82,28 +83,29 @@ document.addEventListener("DOMContentLoaded", function() {
 
         
         // Delete
-        document.querySelectorAll(".list-button-delete").forEach ( item => {
+        document.querySelectorAll(".list-button-delete").forEach ( (item) => {
             item.onclick = () => {
                 item.parentNode.classList.add("fade");
                 item.parentNode.querySelector(".list-button-check").className = "fade-list";
                 item.parentNode.querySelector(".list-text-cross").className = "fade-list";
                 item.parentNode.querySelector(".list-button-delete").className = "fade-list";
-                
+
+                // Set localStorage to true
+                tempList[item.id].erased = true;
+                localStorage.setItem('todo-list', JSON.stringify(tempList));
+                console.log("ID: ", tempList[item.id]);
             }
         })
 
     };
 
     // Check if localStorage already has item
-    let save = JSON.parse(localStorage.getItem("todo-list"));
-    console.log("SAVE :", save);
+    let save = JSON.parse(localStorage.getItem('todo-list'));
     
-    if(save) {
-        for (let i = 0; i < save.length; i++){
-            addTodo(save[i]);
-            tempList.push(save[i]);
-        };
-    };
+    for (let i = 0; i < save.length; i++) {
+        addTodo(save[i]);
+    }
+
 
     // Submission
     document.querySelector("#bottom-form").onsubmit = () => {
@@ -117,11 +119,11 @@ document.addEventListener("DOMContentLoaded", function() {
             finished: false,
             erased: false
         };
+        id++;
 
         // Call todo function to create and insert into the container
         addTodo(todoItem);
         console.log("item created");
-        id++;
 
         // Reset the texefield to empty
         document.querySelector("#bottom-text").value = "";
@@ -147,9 +149,9 @@ document.addEventListener("DOMContentLoaded", function() {
         let day = date.getDate();
         let weekday = dateList[date.getDay()];
 
-        let hour = date.getHours();
-        let minute = date.getMinutes();
-        let second = date.getSeconds();
+        let hour = ("0" + date.getHours()).slice(-2);
+        let minute = ("0" + date.getMinutes()).slice(-2);
+        let second = ("0" + date.getSeconds()).slice(-2);
 
         // Update time display
         let timeDisplay = `${hour}:${minute}:${second}`;
