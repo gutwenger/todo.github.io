@@ -1,31 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta name= viewport content= width=device-width initial-scale=1 />
-        <link rel="stylesheet" href="todo.css" />
-        <script src="todo.js"></script>
-        <script src="https://kit.fontawesome.com/76dadadada.js" crossorigin="anonymous"></script>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Dosis&display=swap" rel="stylesheet">
-
-        <title>My Todo List</title>
-    </head>    
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="stylesheet" href="./style.css" />
+        <script src="app.js"></script>
+        <title>My Weather</title>
+    </head>
     <body>
-        <div id="main-container">
-            <div id="upper-container">
-                <i id="button-refresh" class="fas fa-sync-alt"></i>
-                <p id="date">Thursday, 28 May 2020</p>
-                <p id="time">10:50PM</p>
-            </div>
-            <div id="middle-container">
-            </div>
-            <div id="bottom-container">
-                <form id="bottom-form">
-                    <button id="bottom-add" type="submit"><i class="fas fa-plus-circle"></i></button>
-                    <input id="bottom-text" type="text" placeholder="Add a to-do"/>
-                </form>
-            </div>
+        
+        <div class="location">
+            <h1 class="location-timezone">Timezone</h1>
+            <p>ICON</p>
         </div>
+
+        <div class="temperature">
+            <div class="degree-section">
+                <h2 class="temperature-degree">26</h2>
+                <span>C</span>
+            </div>
+            <div class="temperature-description">Its friggin hot</div>
+        </div>
+
+
+
     </body>
 </html>
