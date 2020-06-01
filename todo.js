@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
-
     // Define useful items
     const list = document.querySelector("#middle-container");
+
 
     // Define lists
     let tempList = [];
@@ -17,12 +17,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // USER INPUT
     // By default, the submit button is set disabled
-    document.querySelector("#bottom-add").disabled = "true";
+    document.querySelector("#bottom-add").disabled = true;
 
     // When there's something on the textfield, enable submit button
     document.querySelector("#bottom-text").onkeyup = () => {
-        document.querySelector("#bottom-add").disabled = "false";
+        if (document.querySelector("#bottom-text").value.length === 0) {
+            document.querySelector("#bottom-add").disabled = true;
+        } else {
+            document.querySelector("#bottom-add").disabled = false;
+        }
     };
+
 
     // Add todo list function
     function addTodo(item) {
@@ -121,8 +126,55 @@ document.addEventListener("DOMContentLoaded", function() {
         // Reset the texefield to empty
         document.querySelector("#bottom-text").value = "";
 
+        // Disable the submit button
+        document.querySelector("#bottom-add").disabled = true;
+        
         //
         return false;
     };
+
+    // Get Date and Time
+    function dateAndTime() {
+        // Define a list of month and date
+        let monthList = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        let dateList = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+        // Acquire data
+        let date = new Date();
+
+        let year = date.getFullYear();
+        let month = monthList[date.getMonth()];
+        let day = date.getDate();
+        let weekday = dateList[date.getDay()];
+
+        let hour = date.getHours();
+        let minute = date.getMinutes();
+
+        // Update time display
+        let timeDisplay;
+
+        if (hour < 12) {
+            timeDisplay = `${hour}:${minute}AM`;
+        } else {
+            timeDisplay = `${hour}:${minute}PM`;
+        }
+
+        document.querySelector("#time").innerHTML = timeDisplay;
+
+        // Update date display
+        let dateDisplay = `${weekday}, ${day} ${month} ${year}`;
+
+        document.querySelector("#date").innerHTML = dateDisplay;
+
+
+
+        // call this function again in 500ms
+        setTimeout(dateAndTime, 1000);
+
+        console.log(year, month, day, weekday, hour, minute);
+
+    }
+
+    dateAndTime();
 
 });
