@@ -5,7 +5,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Define lists
     let tempList = [];
+    console.log("initial tempList: ", tempList);
     let id = 0;
+    console.log("initial id: ", id);
     
 
     // RESET
@@ -56,16 +58,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Adding new todo-list item
         let todoNew = `<div class="list">
-                        <i class="${status}"></i>
+                        <i id="${id}" class="${status}"></i>
                         <p class="${cross}">${name}</p>
                         <i id="${id}" class="list-delete far fa-trash-alt list-button-delete"></i>
                      </div>`
 
         // Insert the todo-list item at the end of the last child of #middle-container
         list.insertAdjacentHTML('beforeend', todoNew);
-
-        // Push the todo-list item into todoList
-        tempList.push(item);
 
         // Update localStorage
         localStorage.setItem("todo-list", JSON.stringify(tempList));
@@ -74,16 +73,26 @@ document.addEventListener("DOMContentLoaded", function() {
         // Mark as completed
         document.querySelectorAll(".list-button-check").forEach ( item => {
             item.onclick = () => {
-                item.className === itemUnchecked ? item.className = itemChecked : item.className = itemUnchecked;
+                console.log(item);
+                console.log(tempList)
+                item.className === itemUnchecked
+                    ? item.className = itemChecked
+                    : item.className = itemUnchecked;
+                console.log("ID: ", tempList[item.id], " CHECKED/UNCHECKED");
                 item.parentNode.querySelector(".list-text-cross").className === itemUncrossed
                     ? item.parentNode.querySelector(".list-text-cross").className = itemCrossed
                     : item.parentNode.querySelector(".list-text-cross").className = itemUncrossed;
+                tempList[item.id].finished === true
+                    ? tempList[item.id].finished = false
+                    : tempList[item.id].finished = true;
+                console.log("ID: ", tempList[item.id]);
+                localStorage.setItem('todo-list', JSON.stringify(tempList));
             }
         });
 
         
         // Delete
-        document.querySelectorAll(".list-button-delete").forEach ( (item) => {
+        document.querySelectorAll(".list-button-delete").forEach ( item => {
             item.onclick = () => {
                 item.parentNode.classList.add("fade");
                 item.parentNode.querySelector(".list-button-check").className = "fade-list";
@@ -94,19 +103,26 @@ document.addEventListener("DOMContentLoaded", function() {
                 tempList[item.id].erased = true;
                 localStorage.setItem('todo-list', JSON.stringify(tempList));
                 console.log("ID: ", tempList[item.id]);
+                console.log("AFTER DELETE: ", tempList.length)
             }
         })
 
     };
 
-    
+
     // Check if localStorage already has item
     let save = JSON.parse(localStorage.getItem('todo-list'));
-    
+
     if (save) {
         for (let i = 0; i < save.length; i++) {
             addTodo(save[i]);
+            id++;
+            // Push the todo-list item into todoList
+            tempList.push(save[i]);
+            console.log("localStorage added to tempList: ", tempList);
+            console.log("localStorage added to id: ", id);
         }
+        localStorage.setItem('todo-list', JSON.stringify(tempList));
     }
 
 
@@ -122,10 +138,14 @@ document.addEventListener("DOMContentLoaded", function() {
             finished: false,
             erased: false
         };
-        id++;
+
+        // Push the todo-list item into todoList
+        tempList.push(todoItem);
 
         // Call todo function to create and insert into the container
         addTodo(todoItem);
+        id++;
+        localStorage.setItem('todo-list', JSON.stringify(tempList));
         console.log("item created");
 
         // Reset the texefield to empty

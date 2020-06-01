@@ -34,7 +34,7 @@ body {
     position: relative;
     background-color: deeppink;
     color: white;
-    animation: back-color-change 20s both infinite;
+    animation: back-color-change 80s both infinite;
     animation-direction: alternate-reverse;
 }
 
@@ -65,11 +65,21 @@ body {
 }
 
 @keyframes back-color-change {
-    50% {
+    25% {
         background-color: orange;
+        color: white;
+    }
+    50% {
+        background-color: red;
+        color: white;
+    }
+    75% {
+        background-color: aliceblue;
+        color: black;
     }
     100% {
-        background-color: red;
+        background-color: darkblue;
+        color: white;
     }
 }
 
