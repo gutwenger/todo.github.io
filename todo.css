@@ -1,0 +1,245 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+}
+
+#main-container {
+    height: 90%;
+    width: 350px;
+    margin: 10px;
+    border-radius: 10px;
+    display: grid;
+    grid-template-rows: 200px 1fr 50px;
+    grid-template-areas: 
+        "upper"
+        "middle"
+        "bottom";
+    font-family: 'Dosis', sans-serif;
+}
+
+#upper-container {
+    grid-area: upper;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px 10px 0 0;
+    position: relative;
+    background-color: deeppink;
+    color: white;
+    animation: back-color-change 20s both infinite;
+    animation-direction: alternate-reverse;
+}
+
+#middle-container {
+    grid-area: middle;
+    width: 100%;
+    height: auto;
+    background: white;
+    overflow-y: scroll;
+}
+
+#bottom-container {
+    grid-area: bottom;
+    width: 100%;
+    height: 100%;
+    border-top: 1.2px solid rgb(143, 143, 143);
+    border-radius: 0 0 10px 10px;
+    background-color: white;
+}
+
+#bottom-form {
+    height: 100%;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    grid-template-areas: 
+        "bottom-add bottom-text";
+}
+
+@keyframes back-color-change {
+    50% {
+        background-color: orange;
+    }
+    100% {
+        background-color: red;
+    }
+}
+
+#button-refresh {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 30px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+#button-refresh:hover {
+    color: black;
+    font-size: 50px;
+    animation: button-refresh-revolve 10s infinite linear;
+    animation-direction: initial;
+}
+
+@keyframes button-refresh-revolve {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#date {
+    position: absolute;
+    bottom: 5px;
+    left: 10px;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+#time {
+    position: absolute;
+    bottom: 30px;
+    left: 10px;
+    font-weight: bold;
+    font-size: 70px;
+}
+
+.list {
+    margin: 0;
+    height: 45px;
+    border-bottom: 1px solid rgb(143, 143, 143);
+    align-items: center;
+    display: grid;
+    grid-template-columns: 45px 1fr 45px;
+    grid-template-areas: 
+        "list-check list-todo list-delete";
+}
+
+.list-empty {
+    grid-area: list-check;
+    text-align: center;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.list-checked {
+    grid-area: list-check;
+    text-align: center;
+    font-size: 20px;
+    color: #00FF00;
+    cursor: pointer;
+}
+
+.list-todo {
+    grid-area: list-todo;
+}
+
+.list-todo-completed {
+    grid-area: list-todo;
+    color: grey;
+    text-decoration: line-through;
+}
+
+.list-delete {
+    grid-area: list-delete;
+    text-align: center;
+    font-size: 20px;
+    visibility: hidden;
+    color: red;
+    cursor: pointer;
+}
+
+.list:hover {
+    background-color: lightgray;
+}
+
+.list:hover .list-delete {
+    visibility: visible;
+    transition: 0.5s;
+}
+
+.list-delete:hover {
+    font-size: 25px;
+    transition: 5s;
+    animation: list-delete-ani 1s infinite;
+    animation-direction: alternate-reverse;
+}
+
+@keyframes list-delete-ani {
+    75% {
+        transform: rotate(20deg);
+    }
+    85% {
+        transform: rotate(45deg);
+    }
+    100%{
+        transform: rotate(20deg);
+    }
+}
+
+.fade {
+    animation: list-fade 0.5s forwards;
+}
+
+.fade-list {
+    animation: list-item-fade 0.1s forwards;
+}
+
+@keyframes list-fade {
+    from {
+        background-color: red;
+    }
+    to {
+        background-color: transparent;
+        height: 0;
+        display: none;
+        visibility: hidden;
+    }
+}
+
+@keyframes list-item-fade {
+    to {
+        visibility: hidden;
+    }
+}
+
+#bottom-add {
+    grid-area: bottom-add;
+    text-align: center;
+    font-size: 35px;
+    background: transparent;
+    border: none;
+    color: #64DFDF;
+    transition: 0.5s;
+}
+
+#bottom-add:hover {
+    font-size: 39px;
+    color: rgb(0, 51, 99);
+    transition: 0.5s;
+}
+
+#bottom-text {
+    grid-area: bottom-text;
+    margin-right: 10px;
+    padding-left: 10px;
+    height: 35px;
+    font-size: 18px;
+    font-family: 'Dosis', sans-serif;
+    border: none;
+}
+
+
+/* Responsive */
+@media only screen and (max-width: 700px) {
+    body {
+        height: 90vh;
+    }
+}
