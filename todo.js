@@ -149,24 +149,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
         let hour = date.getHours();
         let minute = date.getMinutes();
+        let second = date.getSeconds();
 
         // Update time display
-        let timeDisplay;
-
-        if (hour < 12) {
-            timeDisplay = `${hour}:${minute}AM`;
-        } else {
-            timeDisplay = `${hour}:${minute}PM`;
-        }
-
+        let timeDisplay = `${hour}:${minute}:${second}`;
         document.querySelector("#time").innerHTML = timeDisplay;
 
         // Update date display
         let dateDisplay = `${weekday}, ${day} ${month} ${year}`;
-
         document.querySelector("#date").innerHTML = dateDisplay;
-
-
 
         // call this function again in 500ms
         setTimeout(dateAndTime, 1000);
